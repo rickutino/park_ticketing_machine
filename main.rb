@@ -22,6 +22,30 @@ class TicketVendingSystem
     @current_user = nil
   end
 
+  def show_first_message
+    puts "遊園地へようこそ！初めてのご利用ですか？Y/N"
+    input = gets.chomp.upcase
+    # if input ==  "Y"
+    if /^Y$/ =~ input
+        self.user_registration
+    else 
+        puts "login"
+    end
+  end
+
+  def user_registration
+    puts "ユーザー登録を行います"
+    puts "ユーザー名を入力してください"
+    name = gets.chomp
+    puts "パスワードを入力してください"
+    password = gets.chomp
+    puts "年齢を入力してください"
+    age = gets.chomp.to_i
+    puts "誕生月を入力してください"
+    birth_month = gets.chomp.to_i
+    new_user = User.new(name: name, password: password, age: age, birth_month: birth_month)
+    @users << new_user
+  end    
 end
 
 # アトラクションをモデリングしたクラス
@@ -47,3 +71,6 @@ class Ticket
     @fee        = ride.fee
   end
 end
+
+ticket_vending_system = TicketVendingSystem.new
+ticket_vending_system.show_first_message
